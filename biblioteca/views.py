@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from .models import Books, Genres
 from random import randint
 from datetime import datetime
-# from django.urls import reverse
 
 def index(request):
 
@@ -50,19 +49,16 @@ def add_books(request):
             pages=pages,
             qtd=qtd,
             in_stock=in_stock,
-
         )
         return redirect("home")
     else:
         categories = Genres.objects.all()
         return render(request, "pages/add_books.html", {"genres": genres})
 
-
 def book_detail(request, id):
     book = Books.objects.get(id=id)
     return render(request, "pages/book_detail.html", {"book": book})
 
- 
 def delete_book(request, id):
     product = Books.objects.get(id=id).delete()
     return redirect("home")
