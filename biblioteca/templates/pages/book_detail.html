@@ -1,0 +1,72 @@
+{% load static %}
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca</title>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+   
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <h1>Biblioteca</h1>
+        </nav>
+    </header>
+    <main>
+        <div class="card">
+            {% if book.book_cover %}
+                <img src="{{ book.book_cover.url}}" alt="{{ book.name }}">
+            {% else %}
+                <img src="../../../media/img-nao-disp.png" alt="Home">
+            {% endif %}
+            <div class="card-content">
+                <h2>{{ book.name }}</h2>
+                <p>Código: {{ book.cod }}</p>
+                <p>Autor: {{ book.author }}</p>
+                <p>Gênero: {{ book.gender }}</p>
+                <p>Páginas: {{ book.pages }}</p>
+                {% if user.is_superuser %}
+                    <p>Quantidade: {{book.qtd }}</p>
+                {% endif %}
+                <p>Disponível: {% if book.in_stock %}Sim{% else %}Não{% endif %}</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-button">
+                {% if user.is_authenticated %}
+                    {% if user.is_superuser %}
+                        <a href="{% url 'delete-book' book.id %}" type="submit">Excluir</a>
+                        <a href="{% url 'sell-book' book.id %}" type="submit">Emprestar</a>
+                        <a href="{% url 'return-book' book.id %}" type="submit">Devolver</a>
+                    {% else %}
+                        <a href="{% url 'reserve-book' book.id %}" type="submit">Reservar</a>
+                        <button type="button" onclick="history.back(), preventDefault()">Voltar</button>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'reserve-book' book.id %}" type="submit">Reservar</a>    
+                {% endif %}
+            </div>
+        </div>
+        <form class="login-form">
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.level_tag == 'success' %}
+                        <h4 class="success-message">{{ message }}</h4>
+                    {% else %}
+                        <h4 class="error-message">{{ message }}</h4>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </form>
+    </main>
+    <footer class="footer">
+        
+        <p>Created by Bruna Fernandes</p>
+        
+    </footer>
+</body>
+</html>

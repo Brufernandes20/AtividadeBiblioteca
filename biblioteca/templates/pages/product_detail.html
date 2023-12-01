@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cards Biblioteca</title>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global-card.css' %}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <h1>Biblioteca</h1>
+        </nav>
+    </header>
+    <main>
+        <div class="card">
+            {% if book.picture %}
+                <img src="{{ book.picture.url }}" alt="{{ book.name }}">
+            {% else %}
+                <p>Nenhuma imagem disponível</p>
+            {% endif %}
+            <div class="card-content">
+                <h2>Título: {{ book.name }}</h2>
+                <p>Código: {{ book.cod }}</p>
+                <p>Gênero: {{ book.gender }}</p>
+                <p>Estoque: {{ book.qtd }}</p>
+                <p>Páginas: {{ book.pages}}</p>
+                
+            </div>
+        </div>
+        <div>
+            <!-- <a href="{ url 'add_product' product.id %}" type="submit">Editar</a> -->
+            <a href="{% url 'delete-book' book.id %}" type="submit">Excluir</a>
+            <a href="{% url 'sell-book' book.id %}" type="submit">Dar Baixa</a>
+        </div>
+    </main>
+    <footer class="footer">
+        <p>Created by Bruna Fernandes</p>
+    </footer>
+
+</body>
+</html>

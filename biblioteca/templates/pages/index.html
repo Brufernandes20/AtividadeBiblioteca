@@ -1,12 +1,58 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Biblioteca Bruna</title>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
 </head>
-<body>teste
-    
+<body>
+    <h1>{{user}}</h1>
+    <header>    
+        <nav class="navbar">
+            <a href="{% url 'home' %}"><h1>Biblioteca</h1></a>
+            <form role="search" action="{% url 'search-book' %}">
+                <input type="search" name="q">
+                <button type="submit">Buscar</button>
+                <button><a href="{% url 'stockless' %}" role="button">Sem Estoque</a></button>
+            </form>
+        </nav>
+        <h1><a href="{% url 'logout' %}">Sair</a></h1>
+    </header>
+    <main>
+        <section class="tabela-produtos">
+            <h2>Livros Cadastrados</h2>
+            <table class="tabela-produtos-detalhes">
+                <thead>
+                    <tr>
+                        <th class="tabela-th">Código</th>
+                        <th class="tabela-th">Descrição</th>
+                        <th class="tabela-th">Gênero</th>
+                        <th class="tabela-th">Estoque</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book in books %}
+                    <tr>
+                        <td class="tabela-td">{{book.cod}}</td>
+                        <td class="tabela-td"><a href="{% url 'book-detail' book.id %}">{{book.name}}</a></td>
+                        <td class="tabela-td">{{book.gender}}</td>
+                        <td class="tabela-td">{{book.qtd}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>    
+            </table>
+            {% if user.is_authenticated %}
+            <a class="add-button" href="{% url 'add-book' %}" type="submit">Add Livros</a>
+            {% endif %}
+        </section>
+    </main>
+    <footer class="footer">
+        <p>Created by Bruna Fernandes</p>
+    </footer>
+
 </body>
 </html>

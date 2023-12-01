@@ -1,16 +1,18 @@
 from django.db import models
+from django.contrib.auth.models import User
  
 class Genres(models.Model):
     name = models.CharField(max_length=255)
+
     def __str__(self):
         return self.name
 
-        class meta:
-            verbose_name = 'Gender'
-            verbose_name_plural = 'Genres'
+    class Meta:
+        verbose_name = 'Genre'
+        verbose_name_plural = 'Genres'
+
 
 class Books(models.Model):
-
     cod = models.IntegerField(unique=True)
     name = models.CharField(max_length=255)
     gender = models.ForeignKey(Genres, on_delete=models.CASCADE)
@@ -19,11 +21,11 @@ class Books(models.Model):
     pages = models.IntegerField()
     qtd = models.IntegerField()
     in_stock = models.BooleanField(default=False)
-   
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.name
 
-    class meta:
+    class Meta:
         verbose_name = 'Book'
         verbose_name_plural = 'Books'

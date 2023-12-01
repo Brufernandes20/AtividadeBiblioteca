@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+    <header>    
+        <nav class="navbar">
+            <h1>Biblioteca</h1>
+        </nav>
+    </header>
+    <main>
+        <div class="login-container">
+            {% if messages %}
+                {% for message in messages %}
+                <h3>{{message}}</h3>
+                {% endfor %}
+            {% endif %}
+            <form class="login-form" method="POST"> {% csrf_token %}
+                <div class="login-logo">
+                </div>
+                <input type="text" placeholder="Nome" name="username">
+                <input type="password" placeholder="Senha" name="password">
+                <button type="submit" class="btn-login">Acessar</button>
+            </form>
+            <p class="login-registro">Não tem uma conta? <a href="{% url 'register' %}">Cadastre-se</a></p>
+        </div>
+    </main>
+    <footer class="footer">
+       
+        <p>Created by Bruna Fernandes</p>
+        
+    </footer>
+
+</body>
+</html>

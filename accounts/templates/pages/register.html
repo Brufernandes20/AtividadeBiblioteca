@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+    <header>    
+        <nav class="navbar">
+            <h1>Biblioteca</h1>
+        </nav>
+    </header>
+    <main>
+        <div class="login-container">
+            <form class="login-form" method="POST"> {% csrf_token %}
+                <div class="login-logo">
+                </div>
+                <h3>Registrar uma conta</h3>
+                <input type="text" placeholder="Nome" class="login-input" name="username">
+                <input type="email" placeholder="Email" class="login-input" name="email">
+                <h3>Registrar uma senha.</h3>
+                <p>Para registrar uma senha forte use: letras maiúsculas e caracteres especiais.</p>
+                <input type="password" placeholder="Senha" class="login-input" name="password">
+                <input type="password" placeholder="Confirmar Senha" class="login-input" name="repeat-password">
+                <button type="submit" class="btn-login">Acessar</button>
+            </form>
+            <p class="login-registro">Você já tem uma conta? <a href="{% url 'login' %}">Iniciar Sessão!</a></p>
+        </div>
+    </main>
+    <footer class="footer">
+        
+        <p>Created by Bruna Fernandes</p>
+        
+    </footer>
+
+</body>
+</html>
